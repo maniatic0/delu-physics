@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	private GravityController grav;
 
+    [SerializeField]
+    private float jumpVel = 15f;
+
 	[SerializeField]
 	private float minVel = 5f;
 
@@ -28,6 +31,9 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetButtonDown("Jump")) {
+            body.velocity += jumpVel * Vector3.up;
+        }
 		currentVel = Mathf.Lerp(minVel, maxVel, grav.CurrentGravityModifierNormalized);
 		//body.AddForce(currentAcc * Vector3.right, ForceMode.Force);
         body.velocity = new Vector3(currentVel, body.velocity.y, body.velocity.z);
