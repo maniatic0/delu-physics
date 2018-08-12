@@ -26,13 +26,14 @@ public class GravityController : MonoBehaviour {
 	private void Awake() {
 		gravity = Physics.gravity.y;
 		CurrentGravityModifier = 1f;
-		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / maxGrav;
+		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / (maxGrav - minGrav);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		ChangeGravity();
-		Debug.Log("Gravity: " + CurrentGravityModifierNormalized.ToString());
+		Debug.Log("Gravity: " + CurrentGravityModifier.ToString());
+		Debug.Log("Gravity Normalized: " + CurrentGravityModifierNormalized.ToString());
 	}
 
 	void ChangeGravity() {
@@ -42,7 +43,7 @@ public class GravityController : MonoBehaviour {
 			minGrav, 
 			maxGrav
 		);
-		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / maxGrav;
+		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / (maxGrav - minGrav);
 		grav.y = gravity * CurrentGravityModifier;
 		Physics.gravity = grav; 
 	}

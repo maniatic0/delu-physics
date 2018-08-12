@@ -37,6 +37,6 @@ public class PlayerMovement : MonoBehaviour {
 		currentVel = Mathf.Lerp(minVel, maxVel, grav.CurrentGravityModifierNormalized);
 		//body.AddForce(currentAcc * Vector3.right, ForceMode.Force);
         body.velocity = new Vector3(currentVel, body.velocity.y, body.velocity.z);
-		Debug.Log("Acceleration: " + currentVel.ToString());
+		Debug.Log("Velocity: " + currentVel.ToString());
 	}
 }
