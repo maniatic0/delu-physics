@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 		grav = GetComponent<GravityController>();
 	}
 	void Start () {
-		currentVel = Mathf.Lerp(minVel, maxVel, grav.CurrentGravityModifierNormalized);
+		currentVel = Mathf.Lerp(minVel, maxVel, 1f - grav.CurrentGravityModifierNormalized);
 	}
 	
 	// Update is called once per frame
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Jump")) {
             body.velocity += jumpVel * Vector3.up;
         }
-		currentVel = Mathf.Lerp(minVel, maxVel, grav.CurrentGravityModifierNormalized);
+		currentVel = Mathf.Lerp(minVel, maxVel, 1f - grav.CurrentGravityModifierNormalized);
 		//body.AddForce(currentAcc * Vector3.right, ForceMode.Force);
         body.velocity = new Vector3(currentVel, body.velocity.y, body.velocity.z);
 		Debug.Log("Velocity: " + currentVel.ToString());
