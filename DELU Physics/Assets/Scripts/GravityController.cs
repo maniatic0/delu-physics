@@ -23,6 +23,8 @@ public class GravityController : MonoBehaviour {
 
 	private Vector3 grav;
 
+	private bool alive = true;
+
 	private void Awake() {
 		gravity = Physics.gravity.y;
 		CurrentGravityModifier = 1f;
@@ -31,9 +33,13 @@ public class GravityController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		ChangeGravity();
-		Debug.Log("Gravity: " + CurrentGravityModifier.ToString());
-		Debug.Log("Gravity Normalized: " + CurrentGravityModifierNormalized.ToString());
+		if (alive)
+		{
+			ChangeGravity();
+			Debug.Log("Gravity: " + CurrentGravityModifier.ToString());
+			Debug.Log("Gravity Normalized: " + CurrentGravityModifierNormalized.ToString());
+		}
+		
 	}
 
 	void ChangeGravity() {
@@ -46,5 +52,17 @@ public class GravityController : MonoBehaviour {
 		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / (maxGrav - minGrav);
 		grav.y = gravity * CurrentGravityModifier;
 		Physics.gravity = grav; 
+	}
+
+	public void OnDeath() {
+		alive = false;
+	}
+
+	public void OnRevive() {
+		CurrentGravityModifier = 1f;
+		CurrentGravityModifierNormalized = (CurrentGravityModifier - minGrav) / (maxGrav - minGrav);
+		grav.y = gravity * CurrentGravityModifier;
+		Physics.gravity = grav; 
+		alive = true;
 	}
 }

@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool IsGrounded {get; private set;}
 
+	private bool alive = true;
+
 #if UNITY_EDITOR
 	[SerializeField]
 	private bool showGroundSphere = false;
@@ -49,10 +51,13 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CalculateGround();	
+		if (alive)
+		{
+			CalculateGround();	
 
-		if (IsGrounded) {
-			MovementHandler();
+			if (IsGrounded) {
+				MovementHandler();
+			}
 		}
         
 	}
@@ -70,6 +75,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	void CalculateGround() {
 		IsGrounded = Physics.CheckSphere(feet.position, groundRadius, whatIsGround.value);
+	}
+
+	public void OnDeath() {
+		alive = false;
+	}
+
+	public void OnRevive() {
+		alive = true;
 	}
 
 #if UNITY_EDITOR
